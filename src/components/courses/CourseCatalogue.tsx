@@ -18,7 +18,7 @@ function Select({ label, value, onChange, options }: { label: string; value: str
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="min-h-12 w-full rounded-xl border border-line bg-white px-3 text-base text-heading outline-none focus:ring-2 focus:ring-violet/50"
+        className="min-h-12 w-full rounded-xl border-2 border-ink bg-white px-3 text-base text-heading outline-none focus:ring-2 focus:ring-violet/50"
       >
         <option value="">All</option>
         {options.map((o) => (
@@ -73,7 +73,7 @@ export function CourseCatalogue({ courses }: { courses: Course[] }) {
         role="search"
         aria-label="Search and filter courses"
         onSubmit={(e) => { e.preventDefault(); setParam("q", q.trim()); }}
-        className="rounded-card border border-line bg-white p-4 shadow-card sm:p-5"
+        className="chunk rounded-card bg-white p-4 sm:p-5"
       >
         <div className="grid gap-4 md:grid-cols-[2fr_1fr_1fr_1fr]">
           <label className="block text-sm font-medium text-heading">
@@ -86,7 +86,7 @@ export function CourseCatalogue({ courses }: { courses: Course[] }) {
                 onChange={(e) => setQ(e.target.value)}
                 onBlur={() => q.trim() !== urlQ && setParam("q", q.trim())}
                 placeholder="Try “ads” or “prompts”"
-                className="min-h-12 w-full rounded-xl border border-line bg-white pl-11 pr-3 text-base text-heading outline-none focus:ring-2 focus:ring-violet/50"
+                className="min-h-12 w-full rounded-xl border-2 border-ink bg-white pl-11 pr-3 text-base text-heading outline-none focus:ring-2 focus:ring-violet/50"
               />
             </span>
           </label>
@@ -113,7 +113,7 @@ export function CourseCatalogue({ courses }: { courses: Course[] }) {
           ))}
         </ul>
       ) : (
-        <div className="mt-8 rounded-card border border-dashed border-line bg-white p-10 text-center">
+        <div className="mt-8 rounded-card border-2 border-dashed border-ink/40 bg-white p-10 text-center">
           <h2 className="text-lg font-semibold text-heading">No courses match those filters</h2>
           <p className="mx-auto mt-2 max-w-md text-sm">Try removing a filter, or tell us what you&apos;d like to learn and we&apos;ll keep it in mind.</p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">

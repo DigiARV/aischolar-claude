@@ -15,11 +15,11 @@ export default function SignInPage() {
       <PageHero eyebrow="Student dashboard" title="Student accounts are coming soon" lead="Sign-in, saved progress and your learning dashboard will arrive with our first course launch. There's nothing to sign in to yet." />
       <section className="py-14 sm:py-20">
         <Container className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-card border border-line bg-white p-6 sm:p-8">
+          <div className="chunk-sm rounded-card bg-white p-6 sm:p-8">
             <h2 className="text-xl font-semibold text-heading">Want to hear when accounts open?</h2>
             <div className="mt-5"><LeadForm source="sign-in" cta="Notify me" /></div>
           </div>
-          <div className="rounded-card border border-dashed border-line p-6 sm:p-8">
+          <div className="rounded-card border-2 border-dashed border-ink/40 p-6 sm:p-8">
             <h2 className="text-xl font-semibold text-heading">In the meantime</h2>
             <p className="mt-2 text-sm">Browse the proposed courses and join the waitlist for the ones you care about.</p>
             <Button href="/courses" className="mt-5">Explore Courses</Button>

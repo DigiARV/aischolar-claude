@@ -8,66 +8,57 @@ import { getCategory } from "@/data/categories";
 import { courses } from "@/data/courses";
 import { coursesFor, learningPaths } from "@/data/paths";
 
-/** Interactive path chooser. Used on the homepage (compact) and /learning-paths. */
-export function PathFinder({ dark = false }: { dark?: boolean }) {
+const emoji: Record<string, string> = { "grow-business": "📈", "master-ai": "🤖", "marketing-career": "🎯" };
+
+/** Interactive path quiz. Sits on a violet band (white text). Used on the homepage and /learning-paths. */
+export function PathFinder() {
   const [selected, setSelected] = useState<string | null>(null);
   const id = useId();
   const path = learningPaths.find((p) => p.id === selected);
   const list = path ? coursesFor(path, courses) : [];
 
   return (
-    <div>
-      <div role="radiogroup" aria-label="What is your main goal?" className="grid gap-3 md:grid-cols-3">
-        {learningPaths.map((p, i) => {
-          const on = selected === p.id;
-          return (
-            <button
-              key={p.id}
-              type="button"
-              role="radio"
-              aria-checked={on}
-              aria-controls={`${id}-result`}
-              onClick={() => setSelected(p.id)}
-              className={`group min-h-24 rounded-card border p-5 text-left transition duration-200 ${
-                on
-                  ? "border-violet bg-violet text-white shadow-lift"
-                  : dark
-                    ? "border-white/15 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
-                    : "border-line bg-white text-heading hover:border-violet/50"
-              }`}
-            >
-              <span className={`text-xs font-semibold tracking-[0.16em] ${on ? "text-white/80" : "text-cyan-deep"}`}>0{i + 1}</span>
-              <span className="mt-1 block text-lg font-semibold leading-snug">{p.label}</span>
-              <span className={`mt-1 block text-sm ${on ? "text-white/80" : dark ? "text-white/60" : "text-body"}`}>{p.blurb}</span>
-            </button>
-          );
-        })}
+    <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+      <div>
+        <div role="radiogroup" aria-label="What is your main goal?" className="space-y-3.5">
+          {learningPaths.map((p) => {
+            const on = selected === p.id;
+            return (
+              <button key={p.id} type="button" role="radio" aria-checked={on} aria-controls={`${id}-result`} onClick={() => setSelected(p.id)}
+                className={`chunk flex min-h-16 w-full items-center gap-4 rounded-2xl px-5 py-4 text-left text-base font-bold transition duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 ${on ? "bg-amber text-ink" : "bg-white text-ink"}`}>
+                <span className="text-2xl" aria-hidden>{emoji[p.id]}</span>
+                <span className="flex-1">{p.label}</span>
+                <span aria-hidden className={`grid size-6 place-items-center rounded-full border-2 border-ink text-xs ${on ? "bg-ink text-white" : "bg-white"}`}>{on ? "✓" : ""}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
-
-      <div id={`${id}-result`} aria-live="polite" className="mt-6">
+      <div id={`${id}-result`} aria-live="polite">
         {!path ? (
-          <p className={`rounded-card border border-dashed p-6 text-sm ${dark ? "border-white/20 text-white/60" : "border-line text-body"}`}>
-            Pick the option closest to your goal. We&apos;ll suggest where to start. No technical knowledge needed.
-          </p>
+          <div className="rounded-card border-2 border-dashed border-white/50 p-8 text-white/85">
+            <p className="text-lg font-extrabold text-white">Your match shows up here 👇</p>
+            <p className="mt-2 text-sm">Pick the line that sounds most like you. No technical knowledge needed.</p>
+          </div>
         ) : (
-          <div className={`rounded-card border p-6 sm:p-8 ${dark ? "border-white/15 bg-white/5" : "border-line bg-white shadow-card"}`}>
-            <p className={`text-xs font-semibold uppercase tracking-[0.16em] ${dark ? "text-cyan" : "text-violet-deep"}`}>Suggested path</p>
-            <ol className="mt-5 grid gap-5 md:grid-cols-3">
+          <div className="chunk rounded-card bg-white p-6 text-ink sm:p-7">
+            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-violet-deep">Your suggested path</p>
+            <p className="mt-2 text-sm text-body">{path.blurb}</p>
+            <ol className="mt-5 space-y-4">
               {list.map((c, i) => (
-                <li key={c.id} className="relative">
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-violet to-cyan text-sm font-bold text-ink">{i + 1}</span>
-                    <span className="h-px flex-1 bg-gradient-to-r from-violet/40 to-transparent" aria-hidden />
+                <li key={c.id} className="flex gap-4">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full border-2 border-ink bg-cyan text-sm font-extrabold">{i + 1}</span>
+                  <div>
+                    <Link href={`/courses/${c.slug}`} className="font-extrabold leading-snug hover:underline">{c.title}</Link>
+                    <p className="text-xs text-body/80">{getCategory(c.category).short} · {c.level}</p>
+                    <p className="mt-0.5 text-sm text-body">{path.steps[i]?.text}</p>
                   </div>
-                  <p className={`mt-3 text-xs font-medium ${dark ? "text-white/50" : "text-body/70"}`}>{getCategory(c.category).short} · {c.level}</p>
-                  <Link href={`/courses/${c.slug}`} className={`mt-0.5 block font-semibold leading-snug hover:underline ${dark ? "text-white" : "text-heading"}`}>{c.title}</Link>
-                  <p className={`mt-1 text-sm ${dark ? "text-white/60" : "text-body"}`}>{path.steps[i]?.text}</p>
                 </li>
               ))}
             </ol>
-            <div className={`mt-7 flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between ${dark ? "border-white/10" : "border-line"}`}>
-              <p className={`text-sm ${dark ? "text-white/70" : "text-body"}`}><strong className={dark ? "text-white" : "text-heading"}>Next step:</strong> {path.nextStep}</p>
-              <Button href={`/courses/${list[0].slug}`} className="shrink-0">View first course <ArrowRight className="size-4" /></Button>
+            <div className="mt-6 flex flex-col gap-3 border-t-2 border-ink/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm"><strong>Next step:</strong> {path.nextStep}</p>
+              <Button href={`/courses/${list[0].slug}`} className="shrink-0">Show me <ArrowRight className="size-4" /></Button>
             </div>
           </div>
         )}

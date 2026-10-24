@@ -44,19 +44,18 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
 
   return (
     <>
-      <section className="on-dark relative overflow-hidden bg-ink pt-28 pb-14 sm:pt-36 sm:pb-20">
-        <div className="grid-bg absolute inset-0" aria-hidden />
+      <section className="dot-bg relative overflow-hidden border-b-2 border-ink bg-lav/60 pt-28 pb-14 sm:pt-36 sm:pb-20">
         <Container className="relative grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
           <div>
-            <nav aria-label="Breadcrumb" className="mb-5 text-sm text-white/60">
-              <Link href="/courses" className="hover:text-white">Courses</Link> <span aria-hidden>/</span> <span className="text-white/80">{cat.short}</span>
+            <nav aria-label="Breadcrumb" className="mb-5 text-sm text-body">
+              <Link href="/courses" className="hover:text-ink">Courses</Link> <span aria-hidden>/</span> <span className="text-ink">{cat.short}</span>
             </nav>
-            <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full bg-white p-0.5"><StatusBadge status={course.status} /></span><Badge tone="dark">{course.level}</Badge></div>
-            <h1 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">{course.title}</h1>
-            <p className="mt-4 max-w-xl text-lg text-white/70">{course.summary}</p>
-            <p className="mt-4 text-sm text-white/50">By {instructor.name} · {formatLine(course)}</p>
+            <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full border-2 border-ink bg-white p-0.5"><StatusBadge status={course.status} /></span><Badge tone="neutral">{course.level}</Badge></div>
+            <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-heading sm:text-5xl">{course.title}</h1>
+            <p className="mt-4 max-w-xl text-lg text-body">{course.summary}</p>
+            <p className="mt-4 text-sm text-body">By {instructor.name} · {formatLine(course)}</p>
           </div>
-          <div className="overflow-hidden rounded-3xl ring-1 ring-white/10"><CourseArt category={course.category} seed={idx} className="aspect-[5/3] w-full" /></div>
+          <div className="chunk overflow-hidden rounded-3xl"><CourseArt category={course.category} seed={idx} className="aspect-[5/3] w-full" /></div>
         </Container>
       </section>
 
@@ -67,16 +66,16 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
               This course is a proposal. The outline below shows our current plan and may change before launch. Enrolment is not open yet.
             </p>
           )}
-          <section aria-labelledby="about"><h2 id="about" className="text-2xl font-semibold text-heading">About this course</h2><p className="mt-3 leading-relaxed">{course.description}</p></section>
+          <section aria-labelledby="about"><h2 id="about" className="text-2xl font-extrabold text-heading">About this course</h2><p className="mt-3 leading-relaxed">{course.description}</p></section>
           <section aria-labelledby="outcomes">
-            <h2 id="outcomes" className="text-2xl font-semibold text-heading">What you&apos;ll be able to do</h2>
+            <h2 id="outcomes" className="text-2xl font-extrabold text-heading">What you&apos;ll be able to do</h2>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-              {course.outcomes.map((o) => (<li key={o} className="flex gap-3 rounded-xl border border-line bg-white p-4 text-sm"><Check className="mt-0.5 size-5 shrink-0 text-violet" />{o}</li>))}
+              {course.outcomes.map((o) => (<li key={o} className="flex gap-3 rounded-xl border-2 border-ink bg-white p-4 text-sm"><Check className="mt-0.5 size-5 shrink-0 text-violet" />{o}</li>))}
             </ul>
           </section>
           <section aria-labelledby="curriculum">
-            <h2 id="curriculum" className="text-2xl font-semibold text-heading">Curriculum outline <span className="ml-2 align-middle text-xs font-medium text-body/70">(proposed)</span></h2>
-            <ol className="mt-4 divide-y divide-line overflow-hidden rounded-card border border-line bg-white">
+            <h2 id="curriculum" className="text-2xl font-extrabold text-heading">Curriculum outline <span className="ml-2 align-middle text-xs font-medium text-body/70">(proposed)</span></h2>
+            <ol className="mt-4 chunk-sm divide-y-2 divide-ink/10 overflow-hidden rounded-card bg-white">
               {course.curriculum.map((m, i) => (
                 <li key={m.title} className="flex gap-4 p-5">
                   <span className="font-mono text-sm text-violet-deep">{String(i + 1).padStart(2, "0")}</span>
@@ -86,11 +85,11 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
             </ol>
           </section>
           <section aria-labelledby="who" className="grid gap-8 sm:grid-cols-2">
-            <div><h2 id="who" className="text-xl font-semibold text-heading">Who it&apos;s for</h2><ul className="mt-3 list-disc space-y-1 pl-5 text-sm">{course.audience.map((a) => <li key={a}>{a}</li>)}</ul></div>
-            <div><h2 className="text-xl font-semibold text-heading">Prerequisites</h2><ul className="mt-3 list-disc space-y-1 pl-5 text-sm">{course.prerequisites.map((a) => <li key={a}>{a}</li>)}</ul></div>
+            <div><h2 id="who" className="text-xl font-extrabold text-heading">Who it&apos;s for</h2><ul className="mt-3 list-disc space-y-1 pl-5 text-sm">{course.audience.map((a) => <li key={a}>{a}</li>)}</ul></div>
+            <div><h2 className="text-xl font-extrabold text-heading">Prerequisites</h2><ul className="mt-3 list-disc space-y-1 pl-5 text-sm">{course.prerequisites.map((a) => <li key={a}>{a}</li>)}</ul></div>
           </section>
-          <section aria-labelledby="instructor" className="rounded-card border border-line bg-white p-6">
-            <h2 id="instructor" className="text-xl font-semibold text-heading">Your instructor</h2>
+          <section aria-labelledby="instructor" className="chunk-sm rounded-card bg-white p-6">
+            <h2 id="instructor" className="text-xl font-extrabold text-heading">Your instructor</h2>
             <p className="mt-3 font-semibold text-heading">{instructor.name} <span className="font-normal text-body">· {instructor.role}</span></p>
             <p className="mt-2 text-sm leading-relaxed">{instructor.philosophy}</p>
             <Link href="/about" className="mt-3 inline-block text-sm font-semibold text-violet-deep hover:underline">More about AI Scholar</Link>
@@ -98,7 +97,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start" aria-label="Enrolment">
-          <div className="rounded-card border border-line bg-white p-6 shadow-card">
+          <div className="chunk rounded-card bg-white p-6">
             <Price course={course} large />
             <dl className="mt-5 divide-y divide-line text-sm">
               {facts.map(([k, v]) => (<div key={k} className="flex justify-between py-2.5"><dt>{k}</dt><dd className="font-medium text-heading">{v}</dd></div>))}
@@ -122,7 +121,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
       {related.length > 0 && (
         <section className="bg-paper-2/60 py-14 sm:py-20">
           <Container>
-            <h2 className="text-2xl font-semibold text-heading">You might also like</h2>
+            <h2 className="text-2xl font-extrabold text-heading">You might also like</h2>
             <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((c) => (<li key={c.id}><CourseCard course={c} index={courses.indexOf(c)} /></li>))}
             </ul>

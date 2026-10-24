@@ -5,7 +5,7 @@ export function LogoMark({ size = 32 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden>
       <defs>
         <linearGradient id="lm" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7c5cff" />
+          <stop stopColor="#6d4cff" />
           <stop offset="1" stopColor="#22d3ee" />
         </linearGradient>
       </defs>

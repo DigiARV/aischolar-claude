@@ -16,6 +16,8 @@ export interface Course {
   /** One-line, outcome-focused summary used on cards. */
   summary: string;
   description: string;
+  /** Short, playful "after this" line for cards. Keep it aspirational, never a guarantee. */
+  teaser: string;
   category: CategoryId;
   level: Level;
   /** Planned format. Shown with a "planned" label until the course is published. */
@@ -46,6 +48,7 @@ export const courses: Course[] = [
     slug: "ai-tools-for-everyday-productivity",
     title: "AI Tools for Everyday Productivity",
     summary: "Use AI assistants to research, write, plan and decide faster, without losing your own judgement.",
+    teaser: "your weekly tasks get a lot shorter.",
     description:
       "A hands-on introduction to modern AI assistants for working professionals and business owners. You will learn how to write clear prompts, verify AI output and build a small personal library of reusable workflows for tasks you already do every week.",
     category: "ai",
@@ -76,6 +79,7 @@ export const courses: Course[] = [
     slug: "ai-powered-marketing-fundamentals",
     title: "AI-Powered Marketing Fundamentals",
     summary: "Learn the marketing basics, then use AI to plan, create and improve campaigns faster.",
+    teaser: "you can explain your marketing in one clear sentence.",
     description:
       "Marketing foundations (audience, positioning, channels, funnel and measurement) taught alongside practical AI workflows, so you can plan and run a simple campaign end to end.",
     category: "marketing",
@@ -106,6 +110,7 @@ export const courses: Course[] = [
     slug: "practical-ai-content-creation",
     title: "Practical AI Content Creation",
     summary: "Plan, write and produce consistent content for social and video using AI-assisted workflows.",
+    teaser: "a week of content, planned in one sitting.",
     description:
       "Build a repeatable content workflow: idea generation, scripting, editing support and repurposing, while keeping your own voice and standards.",
     category: "content",
@@ -136,6 +141,7 @@ export const courses: Course[] = [
     slug: "meta-ads-fundamentals",
     title: "Meta Ads Fundamentals",
     summary: "Understand how paid social works and set up, measure and improve your first campaigns.",
+    teaser: "an ads dashboard stops looking like a puzzle.",
     description:
       "A practical introduction to advertising on Meta platforms: account structure, audiences, creative, budgets and reading results. Taught with exercises you can apply to a real or sample business.",
     category: "performance",
@@ -166,6 +172,7 @@ export const courses: Course[] = [
     slug: "ai-for-business-growth",
     title: "AI for Business Growth",
     summary: "Find where AI can save time or create revenue in your business, and plan a safe first rollout.",
+    teaser: "you have a shortlist of AI projects worth your time.",
     description:
       "A practical framework for identifying high-value AI use cases across marketing, sales, operations and customer support, with a focus on responsible adoption and measurable results.",
     category: "business",
@@ -196,6 +203,7 @@ export const courses: Course[] = [
     slug: "build-your-first-marketing-automation-workflow",
     title: "Build Your First Marketing Automation Workflow",
     summary: "Connect your tools and automate one real marketing task from trigger to result.",
+    teaser: "one boring task quietly runs itself.",
     description:
       "A guided build: pick a repetitive marketing task, design the workflow, connect the tools and test it, with documentation so you can maintain and extend it.",
     category: "automation",

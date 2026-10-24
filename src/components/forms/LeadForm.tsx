@@ -35,10 +35,10 @@ export function LeadForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const dark = tone === "dark";
 
-  const input = `w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:ring-2 focus:ring-violet/50 min-h-12 ${
-    dark ? "border-white/15 bg-white/5 text-white placeholder:text-white/40" : "border-line bg-white text-heading placeholder:text-body/50"
+  const input = `w-full rounded-xl border-2 px-4 py-3 text-base outline-none transition focus:ring-2 focus:ring-violet/50 min-h-12 ${
+    dark ? "border-white/15 bg-white/5 text-white placeholder:text-white/40" : "border-ink bg-white text-heading placeholder:text-body/50"
   }`;
-  const label = `mb-1.5 block text-sm font-medium ${dark ? "text-white/80" : "text-heading"}`;
+  const label = `mb-1.5 block text-sm font-bold ${dark ? "text-white/80" : "text-heading"}`;
   const err = `mt-1.5 text-sm ${dark ? "text-[#ff9aa8]" : "text-[#c0263f]"}`;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -65,7 +65,7 @@ export function LeadForm({
 
   if (state.s === "success") {
     return (
-      <div role="status" className={`rounded-2xl border p-6 ${dark ? "border-cyan/30 bg-cyan/10 text-white" : "border-violet/20 bg-violet/5 text-heading"}`}>
+      <div role="status" className={`rounded-2xl border p-6 ${dark ? "border-cyan/30 bg-cyan/10 text-white" : "border-ink bg-sky text-heading"}`}>
         <p className="text-lg font-semibold">{state.mode === "demo" ? "Form check passed (demo mode)" : successTitle}</p>
         <p className={`mt-1 text-sm ${dark ? "text-white/70" : "text-body"}`}>
           {state.mode === "demo"

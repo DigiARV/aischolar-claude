@@ -15,7 +15,7 @@ export default function ContactPage() {
       <PageHero eyebrow="Contact" title="Talk to us" lead="Questions about courses, a topic you'd like us to cover, or a collaboration? Send a message." />
       <section className="py-14 sm:py-20">
         <Container className="grid gap-10 lg:grid-cols-[1.3fr_1fr]">
-          <div className="rounded-card border border-line bg-white p-6 shadow-card sm:p-8">
+          <div className="chunk rounded-card bg-white p-6 sm:p-8">
             <LeadForm source="contact" withMessage cta="Send message" consentText="I agree to AI Scholar contacting me about this message." successTitle="Message received" />
           </div>
           <div className="space-y-4 text-sm">

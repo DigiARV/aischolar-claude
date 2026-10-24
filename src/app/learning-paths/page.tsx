@@ -12,7 +12,7 @@ export default function LearningPathsPage() {
   return (
     <>
       <PageHero eyebrow="Learning paths" title="Find the right place to start" lead="Pick the goal closest to yours and see a suggested order of courses. No technical background needed." />
-      <section className="py-14 sm:py-20"><Container><PathFinder /></Container></section>
+      <section className="grid-lines border-b-2 border-ink bg-violet py-14 sm:py-20"><Container><PathFinder /></Container></section>
     </>
   );
 }

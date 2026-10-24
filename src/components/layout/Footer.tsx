@@ -10,7 +10,7 @@ const link = "text-white/65 transition-colors hover:text-white";
 export function Footer() {
   const primary = categories.filter((c) => c.primary);
   return (
-    <footer className="on-dark bg-ink pt-16 pb-8 text-white/70">
+    <footer className="border-t-2 border-ink bg-ink pt-16 pb-8 text-white/70">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div className="max-w-sm">

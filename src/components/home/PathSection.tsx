@@ -3,11 +3,10 @@ import { PathFinder } from "./PathFinder";
 
 export function PathSection() {
   return (
-    <section className="on-dark relative overflow-hidden bg-navy py-20 sm:py-28">
-      <div className="animate-aurora absolute right-0 top-0 h-80 w-80 rounded-full bg-violet/20 blur-[110px]" aria-hidden />
-      <Container className="relative">
-        <SectionHeading dark eyebrow="Not sure where to start?" title="Choose your starting point" lead="Tell us your goal in plain words. We'll map the courses worth taking, in order." />
-        <div className="mt-10"><PathFinder dark /></div>
+    <section className="grid-lines border-y-2 border-ink bg-violet py-20 sm:py-28">
+      <Container>
+        <div className="mb-10"><SectionHeading dark eyebrow="10-second quiz" title="Which path fits you?" lead="Be honest. Pick the goal that sounds most like you and we'll map the courses worth taking, in order." /></div>
+        <PathFinder />
       </Container>
     </section>
   );

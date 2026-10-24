@@ -1,6 +1,9 @@
 import { Hero } from "@/components/home/Hero";
+import { Marquee } from "@/components/home/Marquee";
+import { Stats } from "@/components/home/Stats";
 import { Pillars } from "@/components/home/Pillars";
 import { FeaturedCourses } from "@/components/home/FeaturedCourses";
+import { WishlistBuilder } from "@/components/home/WishlistBuilder";
 import { PathSection } from "@/components/home/PathSection";
 import { WhyUs } from "@/components/home/WhyUs";
 import { HowItWorks } from "@/components/home/HowItWorks";
@@ -15,8 +18,11 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Marquee />
+      <Stats />
       <Pillars />
       <FeaturedCourses />
+      <WishlistBuilder />
       <PathSection />
       <WhyUs />
       <HowItWorks />
