@@ -27,8 +27,8 @@ export const categories: Category[] = [
     description:
       "Understand modern AI tools and put them to work on everyday tasks, from research and writing to decision-making.",
     primary: true,
-    accent: "#7c5cff",
-    accent2: "#22d3ee",
+    accent: "#5b3fe6",
+    accent2: "#ff6b4a",
   },
   {
     id: "marketing",
@@ -37,8 +37,8 @@ export const categories: Category[] = [
     description:
       "Learn how modern marketing works, then use AI to plan, create and improve campaigns faster.",
     primary: true,
-    accent: "#22d3ee",
-    accent2: "#7c5cff",
+    accent: "#ff6b4a",
+    accent2: "#5b3fe6",
   },
   {
     id: "business",
@@ -48,7 +48,7 @@ export const categories: Category[] = [
       "Connect tools and tactics to outcomes that matter: customers, revenue, systems and sound decisions.",
     primary: true,
     accent: "#f5b544",
-    accent2: "#7c5cff",
+    accent2: "#5b3fe6",
   },
   {
     id: "content",
@@ -56,7 +56,7 @@ export const categories: Category[] = [
     short: "Content",
     description: "Write, design and produce video and social content with AI-assisted workflows.",
     primary: false,
-    accent: "#7c5cff",
+    accent: "#5b3fe6",
     accent2: "#f5b544",
   },
   {
@@ -65,7 +65,7 @@ export const categories: Category[] = [
     short: "Performance",
     description: "Paid advertising fundamentals, measurement and optimisation.",
     primary: false,
-    accent: "#22d3ee",
+    accent: "#ff6b4a",
     accent2: "#f5b544",
   },
   {
@@ -74,8 +74,8 @@ export const categories: Category[] = [
     short: "Automation",
     description: "Connect tools and remove repetitive work with reusable, documented workflows.",
     primary: false,
-    accent: "#7c5cff",
-    accent2: "#22d3ee",
+    accent: "#5b3fe6",
+    accent2: "#ff6b4a",
   },
   {
     id: "ecommerce",
@@ -84,7 +84,7 @@ export const categories: Category[] = [
     description: "Build and grow an online store with practical marketing and operations know-how.",
     primary: false,
     accent: "#f5b544",
-    accent2: "#22d3ee",
+    accent2: "#ff6b4a",
   },
   {
     id: "career",
@@ -92,8 +92,8 @@ export const categories: Category[] = [
     short: "Career",
     description: "Future-ready professional skills to work smarter and stay employable.",
     primary: false,
-    accent: "#22d3ee",
-    accent2: "#7c5cff",
+    accent: "#ff6b4a",
+    accent2: "#5b3fe6",
   },
 ];
 

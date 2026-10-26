@@ -1,5 +1,5 @@
 import { FounderSection } from "@/components/home/FounderSection";
-import { WhyUs } from "@/components/home/WhyUs";
+import { Principles } from "@/components/home/Principles";
 import { FinalCta } from "@/components/home/FinalCta";
 import { Container, PageHero } from "@/components/ui/Section";
 import { pageMetadata } from "@/lib/metadata";
@@ -26,7 +26,7 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
-      <WhyUs />
+      <Principles />
       <FounderSection />
       <FinalCta />
     </>

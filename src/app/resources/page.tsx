@@ -30,7 +30,7 @@ export default function ResourcesPage() {
                       <p className="mt-1 text-sm">{r.summary}</p>
                     </li>
                   ))}
-                  {items.length === 0 && <li className="rounded-card border-2 border-dashed border-ink/40 p-5 text-sm">Nothing planned yet in this category.</li>}
+                  {items.length === 0 && <li className="rounded-card border border-dashed border-ink/30 p-5 text-sm">Nothing planned yet in this category.</li>}
                 </ul>
               </div>
             );

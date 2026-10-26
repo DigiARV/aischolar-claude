@@ -19,7 +19,7 @@ export default function SignInPage() {
             <h2 className="text-xl font-semibold text-heading">Want to hear when accounts open?</h2>
             <div className="mt-5"><LeadForm source="sign-in" cta="Notify me" /></div>
           </div>
-          <div className="rounded-card border-2 border-dashed border-ink/40 p-6 sm:p-8">
+          <div className="rounded-card border border-dashed border-ink/30 p-6 sm:p-8">
             <h2 className="text-xl font-semibold text-heading">In the meantime</h2>
             <p className="mt-2 text-sm">Browse the proposed courses and join the waitlist for the ones you care about.</p>
             <Button href="/courses" className="mt-5">Explore Courses</Button>

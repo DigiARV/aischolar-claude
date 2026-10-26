@@ -1,6 +1,6 @@
 # AI Scholar
 
-Marketing + course-discovery website for AI Scholar. Design language: light, playful and tactile (chunky outlined cards, hard offset shadows, highlighter headlines, pastel tiles, tilted ribbons) with interactive sections: course carousel, wishlist builder, path quiz, learning-style toggle, AI-prompt lab, founder flip card. Next.js (App Router) · TypeScript · Tailwind CSS v4. No animation or UI libraries.
+Marketing + course-discovery website for AI Scholar. Design language: warm ivory, serif display headlines, soft hairline cards, violet + coral accents. Interactive sections: skill-map explorer, level-tabbed course grid, two-step path wizard, principles tabs, prompt-anatomy lesson preview. Next.js (App Router) · TypeScript · Tailwind CSS v4. No animation or UI libraries.
 
 ## Run
 

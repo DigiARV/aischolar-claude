@@ -5,64 +5,88 @@ import { useId, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight } from "@/components/ui/Icons";
 import { getCategory } from "@/data/categories";
-import { courses } from "@/data/courses";
+import { courses, type Level } from "@/data/courses";
 import { coursesFor, learningPaths } from "@/data/paths";
 
-const emoji: Record<string, string> = { "grow-business": "📈", "master-ai": "🤖", "marketing-career": "🎯" };
+const experience: { id: "new" | "some" | "pro"; label: string; hint: string }[] = [
+  { id: "new", label: "Brand new", hint: "I'm just getting started" },
+  { id: "some", label: "Some experience", hint: "I've tried a few things" },
+  { id: "pro", label: "Fairly experienced", hint: "I want to go deeper" },
+];
+const rank: Record<Level, number> = { Beginner: 0, Intermediate: 1, Advanced: 2 };
 
-/** Interactive path quiz. Sits on a violet band (white text). Used on the homepage and /learning-paths. */
+/** Two-step wizard: goal, then experience. Orders the path's courses to suit the learner. */
 export function PathFinder() {
-  const [selected, setSelected] = useState<string | null>(null);
+  const [goal, setGoal] = useState<string | null>(null);
+  const [exp, setExp] = useState<(typeof experience)[number]["id"] | null>(null);
   const id = useId();
-  const path = learningPaths.find((p) => p.id === selected);
-  const list = path ? coursesFor(path, courses) : [];
+  const path = learningPaths.find((p) => p.id === goal);
+  const step = !goal ? 1 : !exp ? 2 : 3;
 
+  let list = path ? coursesFor(path, courses) : [];
+  if (exp === "new") list = [...list].sort((a, b) => rank[a.level] - rank[b.level]);
+  if (exp === "pro") list = [...list].sort((a, b) => rank[b.level] - rank[a.level]);
+
+  const option = "group flex min-h-16 w-full items-center gap-4 rounded-2xl border border-line bg-white px-5 py-4 text-left transition hover:border-violet hover:shadow-md";
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-      <div>
-        <div role="radiogroup" aria-label="What is your main goal?" className="space-y-3.5">
-          {learningPaths.map((p) => {
-            const on = selected === p.id;
-            return (
-              <button key={p.id} type="button" role="radio" aria-checked={on} aria-controls={`${id}-result`} onClick={() => setSelected(p.id)}
-                className={`chunk flex min-h-16 w-full items-center gap-4 rounded-2xl px-5 py-4 text-left text-base font-bold transition duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 ${on ? "bg-amber text-ink" : "bg-white text-ink"}`}>
-                <span className="text-2xl" aria-hidden>{emoji[p.id]}</span>
-                <span className="flex-1">{p.label}</span>
-                <span aria-hidden className={`grid size-6 place-items-center rounded-full border-2 border-ink text-xs ${on ? "bg-ink text-white" : "bg-white"}`}>{on ? "✓" : ""}</span>
+    <div className="chunk mx-auto max-w-3xl rounded-[2rem] bg-white p-6 sm:p-10" aria-live="polite">
+      <div className="mb-6 flex items-center justify-between">
+        <ol className="flex gap-2" aria-label={`Step ${step} of 3`}>
+          {[1, 2, 3].map((n) => (<li key={n} className={`h-1.5 w-10 rounded-full transition-colors ${n <= step ? "bg-violet" : "bg-paper-2"}`} />))}
+        </ol>
+        {step > 1 && <button type="button" onClick={() => (step === 3 ? setExp(null) : setGoal(null))} className="text-sm font-semibold text-violet hover:underline">← Back</button>}
+      </div>
+
+      {step === 1 && (
+        <div>
+          <h3 className="font-serif text-3xl text-ink sm:text-4xl">What do you want to achieve?</h3>
+          <div role="group" aria-labelledby={id} className="mt-6 space-y-3">
+            <span id={id} className="sr-only">Choose your main goal</span>
+            {learningPaths.map((p) => (
+              <button key={p.id} type="button" onClick={() => setGoal(p.id)} className={option}>
+                <span className="flex-1"><span className="block font-semibold text-ink">{p.label}</span><span className="mt-0.5 block text-sm text-body">{p.blurb}</span></span>
+                <ArrowRight className="size-5 text-violet transition-transform group-hover:translate-x-1" />
               </button>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </div>
-      <div id={`${id}-result`} aria-live="polite">
-        {!path ? (
-          <div className="rounded-card border-2 border-dashed border-white/50 p-8 text-white/85">
-            <p className="text-lg font-extrabold text-white">Your match shows up here 👇</p>
-            <p className="mt-2 text-sm">Pick the line that sounds most like you. No technical knowledge needed.</p>
+      )}
+
+      {step === 2 && (
+        <div>
+          <h3 className="font-serif text-3xl text-ink sm:text-4xl">How familiar are you with this?</h3>
+          <p className="mt-2 text-body">No wrong answers. This only changes the order we suggest.</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {experience.map((e) => (
+              <button key={e.id} type="button" onClick={() => setExp(e.id)} className={`${option} flex-col items-start gap-1`}>
+                <span className="font-semibold text-ink">{e.label}</span><span className="text-sm text-body">{e.hint}</span>
+              </button>
+            ))}
           </div>
-        ) : (
-          <div className="chunk rounded-card bg-white p-6 text-ink sm:p-7">
-            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-violet-deep">Your suggested path</p>
-            <p className="mt-2 text-sm text-body">{path.blurb}</p>
-            <ol className="mt-5 space-y-4">
-              {list.map((c, i) => (
-                <li key={c.id} className="flex gap-4">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full border-2 border-ink bg-cyan text-sm font-extrabold">{i + 1}</span>
-                  <div>
-                    <Link href={`/courses/${c.slug}`} className="font-extrabold leading-snug hover:underline">{c.title}</Link>
-                    <p className="text-xs text-body/80">{getCategory(c.category).short} · {c.level}</p>
-                    <p className="mt-0.5 text-sm text-body">{path.steps[i]?.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <div className="mt-6 flex flex-col gap-3 border-t-2 border-ink/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm"><strong>Next step:</strong> {path.nextStep}</p>
-              <Button href={`/courses/${list[0].slug}`} className="shrink-0">Show me <ArrowRight className="size-4" /></Button>
-            </div>
+        </div>
+      )}
+
+      {step === 3 && path && (
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet">Your suggested path</p>
+          <h3 className="mt-2 font-serif text-3xl text-ink sm:text-4xl">{path.label.replace(/^I want to /, "To ")}, start with:</h3>
+          <ol className="mt-6 space-y-3">
+            {list.map((c, i) => (
+              <li key={c.id} className={`flex gap-4 rounded-2xl p-4 ${i === 0 ? "bg-lav" : "bg-paper"}`}>
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-ink text-sm font-semibold text-white">{i + 1}</span>
+                <div>
+                  <Link href={`/courses/${c.slug}`} className="font-semibold text-ink hover:underline">{c.title}</Link>
+                  <p className="text-xs text-body/80">{getCategory(c.category).short} · {c.level}{i === 0 && " · Best first step"}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-6 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-body"><strong className="text-ink">Next step:</strong> {path.nextStep}</p>
+            <Button href={`/courses/${list[0].slug}`} className="shrink-0">View first course <ArrowRight className="size-4" /></Button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

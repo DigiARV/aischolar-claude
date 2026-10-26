@@ -47,23 +47,23 @@ export function Header() {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 bg-paper/90 backdrop-blur-md transition-shadow ${scrolled || open ? "border-b-2 border-ink" : "border-b-2 border-transparent"}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 bg-paper/85 backdrop-blur-md transition-colors ${scrolled || open ? "border-b border-line" : "border-b border-transparent"}`}>
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-ink">Skip to content</a>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:h-[4.5rem]">
         <Logo dark={false} />
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
           {mainNav.map((l) => (
             <Link key={l.href} href={l.href} aria-current={isActive(l.href) ? "page" : undefined}
-              className={`rounded-full px-3.5 py-2 text-sm font-bold transition-colors ${isActive(l.href) ? "bg-ink text-white" : "text-ink/75 hover:bg-lav hover:text-ink"}`}>
+              className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${isActive(l.href) ? "bg-ink text-white" : "text-ink/70 hover:bg-paper-2 hover:text-ink"}`}>
               {l.label}
             </Link>
           ))}
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
-          <Link href="/sign-in" className="rounded-full px-3.5 py-2 text-sm font-bold text-ink/75 hover:text-ink">Sign In</Link>
+          <Link href="/sign-in" className="rounded-full px-3.5 py-2 text-sm font-medium text-ink/70 hover:text-ink">Sign In</Link>
           <Button href="/courses" className="!py-2.5">Start Learning</Button>
         </div>
-        <button ref={toggleRef} type="button" className="grid size-11 place-items-center rounded-full border-2 border-ink bg-white text-ink lg:hidden"
+        <button ref={toggleRef} type="button" className="grid size-11 place-items-center rounded-full border border-ink/20 bg-white text-ink lg:hidden"
           aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen((v) => !v)}>
           {open ? <Close /> : <Menu />}
         </button>
@@ -72,9 +72,9 @@ export function Header() {
         <nav aria-label="Mobile" className="flex flex-col">
           {mainNav.map((l) => (
             <Link key={l.href} href={l.href} aria-current={isActive(l.href) ? "page" : undefined}
-              className={`border-b-2 border-ink/10 py-4 text-xl font-extrabold ${isActive(l.href) ? "text-violet-deep" : "text-ink"}`}>{l.label}</Link>
+              className={`border-b border-line py-4 font-serif text-3xl ${isActive(l.href) ? "text-violet-deep" : "text-ink"}`}>{l.label}</Link>
           ))}
-          <Link href="/sign-in" className="border-b-2 border-ink/10 py-4 text-xl font-extrabold text-ink/70">Sign In</Link>
+          <Link href="/sign-in" className="border-b border-line py-4 font-serif text-3xl text-ink/70">Sign In</Link>
         </nav>
         <Button href="/courses" className="mt-6 w-full">Start Learning</Button>
       </div>

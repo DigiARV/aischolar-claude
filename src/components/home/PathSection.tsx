@@ -3,9 +3,9 @@ import { PathFinder } from "./PathFinder";
 
 export function PathSection() {
   return (
-    <section className="grid-lines border-y-2 border-ink bg-violet py-20 sm:py-28">
+    <section className="border-y border-line bg-gradient-to-b from-lav/60 to-paper py-20 sm:py-28">
       <Container>
-        <div className="mb-10"><SectionHeading dark eyebrow="10-second quiz" title="Which path fits you?" lead="Be honest. Pick the goal that sounds most like you and we'll map the courses worth taking, in order." /></div>
+        <div className="mb-10"><SectionHeading align="center" eyebrow="Find your starting point" title={<>Not sure where to <em>begin?</em></>} lead="Answer two quick questions and get a suggested course order. No account needed." /></div>
         <PathFinder />
       </Container>
     </section>

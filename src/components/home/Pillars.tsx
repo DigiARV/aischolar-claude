@@ -6,43 +6,36 @@ import { Container, SectionHeading } from "@/components/ui/Section";
 import { categories } from "@/data/categories";
 import { courses } from "@/data/courses";
 
-const tints = ["bg-lav", "bg-sky", "bg-butter"];
-
 export function Pillars() {
   const primary = categories.filter((c) => c.primary);
   const secondary = categories.filter((c) => !c.primary);
   return (
-    <section className="border-y-2 border-ink bg-white py-20 sm:py-28">
+    <section className="border-y border-line bg-white py-20 sm:py-28">
       <Container>
-        <SectionHeading eyebrow="What you can learn" title={<>Three pillars. <span className="hl">One skill set.</span></>} lead="Start in the area closest to your goal. The pillars are designed to work together, so each one makes the others more useful." />
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <SectionHeading eyebrow="What you can learn" title={<>Three pillars, <em>one skill set</em></>} lead="Start in the area closest to your goal. Each pillar makes the others more useful." />
+        <ul className="mt-12 divide-y divide-line border-y border-line">
           {primary.map((c, i) => {
-            const n = courses.filter((x) => x.category === c.id).length;
+            const mine = courses.filter((x) => x.category === c.id);
             return (
-              <Reveal key={c.id} delay={i * 110}>
-                <Link href={`/courses?category=${c.id}`} className={`chunk group flex h-full flex-col overflow-hidden rounded-card transition duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-ink)] ${tints[i]}`}>
-                  <div className="aspect-[16/9] overflow-hidden border-b-2 border-ink"><CourseArt category={c.id} seed={i} className="size-full transition duration-500 group-hover:scale-105" /></div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <p className="text-sm font-extrabold text-ink/50">0{i + 1}</p>
-                    <h3 className="mt-1 text-xl font-extrabold text-ink">{c.name}</h3>
-                    <p className="mt-2 flex-1 text-[0.95rem] leading-relaxed text-ink/80">{c.description}</p>
-                    <p className="mt-5 flex items-center justify-between text-sm font-extrabold text-ink">
-                      <span>{n > 0 ? `${n} proposed ${n === 1 ? "course" : "courses"}` : "Courses coming"}</span>
-                      <span className="inline-flex items-center gap-1.5 transition-all group-hover:gap-2.5">Explore <ArrowRight className="size-4" /></span>
-                    </p>
-                  </div>
-                </Link>
-              </Reveal>
+              <li key={c.id}>
+                <Reveal delay={i * 80}>
+                  <Link href={`/courses?category=${c.id}`} className="group grid items-center gap-5 py-7 transition-colors hover:bg-paper md:grid-cols-[4rem_1.2fr_1.4fr_9rem_2rem] md:gap-8 md:px-4">
+                    <span className="font-serif text-5xl text-ink/25 transition-colors group-hover:text-violet">0{i + 1}</span>
+                    <h3 className="font-serif text-3xl leading-tight text-ink sm:text-4xl">{c.name}</h3>
+                    <p className="text-[0.95rem] leading-relaxed">{c.description}</p>
+                    <div className="hidden aspect-[4/3] overflow-hidden rounded-2xl md:block"><CourseArt category={c.id} seed={i} className="size-full transition duration-500 group-hover:scale-110" /></div>
+                    <span className="flex items-center gap-2 text-sm font-semibold text-violet md:justify-end"><span className="md:hidden">{mine.length} proposed {mine.length === 1 ? "course" : "courses"} · Explore</span><ArrowRight className="size-5 transition-transform group-hover:translate-x-1" /></span>
+                  </Link>
+                </Reveal>
+              </li>
             );
           })}
-        </div>
+        </ul>
         <Reveal className="mt-10">
-          <p className="mb-3 text-sm font-extrabold text-heading">Also explore</p>
-          <ul className="flex flex-wrap gap-3">
+          <p className="mb-3 text-sm font-semibold text-heading">Also explore</p>
+          <ul className="flex flex-wrap gap-2.5">
             {secondary.map((c) => (
-              <li key={c.id}>
-                <Link href={`/courses?category=${c.id}`} className="chunk-sm inline-flex min-h-11 items-center rounded-full bg-white px-4 text-sm font-bold text-ink transition hover:-translate-y-0.5 hover:bg-lav">{c.name}</Link>
-              </li>
+              <li key={c.id}><Link href={`/courses?category=${c.id}`} className="inline-flex min-h-11 items-center rounded-full border border-line bg-paper px-4 text-sm font-medium text-ink transition hover:border-violet hover:text-violet">{c.name}</Link></li>
             ))}
           </ul>
         </Reveal>

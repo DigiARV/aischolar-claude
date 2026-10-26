@@ -1,13 +1,11 @@
 import { Hero } from "@/components/home/Hero";
-import { Marquee } from "@/components/home/Marquee";
-import { Stats } from "@/components/home/Stats";
+import { Roadmap } from "@/components/home/Roadmap";
 import { Pillars } from "@/components/home/Pillars";
-import { FeaturedCourses } from "@/components/home/FeaturedCourses";
-import { WishlistBuilder } from "@/components/home/WishlistBuilder";
+import { HomeCourses } from "@/components/home/HomeCourses";
 import { PathSection } from "@/components/home/PathSection";
-import { WhyUs } from "@/components/home/WhyUs";
-import { HowItWorks } from "@/components/home/HowItWorks";
-import { AILearning } from "@/components/home/AILearning";
+import { Principles } from "@/components/home/Principles";
+import { Journey } from "@/components/home/Journey";
+import { AIPrompt } from "@/components/home/AIPrompt";
 import { FounderSection } from "@/components/home/FounderSection";
 import { FreeResources } from "@/components/home/FreeResources";
 import { Community } from "@/components/home/Community";
@@ -18,16 +16,14 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Marquee />
-      <Stats />
       <Pillars />
-      <FeaturedCourses />
-      <WishlistBuilder />
+      <HomeCourses />
       <PathSection />
-      <WhyUs />
-      <HowItWorks />
-      <AILearning />
+      <Principles />
+      <Journey />
+      <AIPrompt />
       <FounderSection />
+      <Roadmap />
       <FreeResources />
       <Community />
       <FaqSection />

@@ -1,38 +1,50 @@
-/** Original hero composition: a tilted "skill meter" card, floating topic chips and a sticky note. Illustrative only. */
+"use client";
+
+import { useState } from "react";
+
+const nodes = [
+  { id: "ai", label: "AI tools", x: 18, y: 24, color: "#5b3fe6", topics: ["Prompting that works", "AI-assisted research", "Reusable workflows", "Using AI responsibly"] },
+  { id: "marketing", label: "Marketing", x: 82, y: 24, color: "#ff6b4a", topics: ["Positioning & message", "Content and hooks", "Paid ads basics", "Reading the numbers"] },
+  { id: "business", label: "Business", x: 50, y: 86, color: "#f5a524", topics: ["Finding AI opportunities", "Simple automation", "Customer focus", "Better decisions"] },
+] as const;
+
+/** Original hero explorer: three skill areas connect to one real project. Tap a node to see what it covers. Illustrative. */
 export function HeroVisual() {
-  const bars = [
-    { name: "AI tools", w: 72, c: "bg-violet" },
-    { name: "Marketing", w: 58, c: "bg-cyan" },
-    { name: "Business", w: 44, c: "bg-amber" },
-  ];
-  const chip = "absolute rounded-full border-2 border-ink bg-white px-3.5 py-1.5 text-xs font-bold text-ink shadow-[3px_3px_0_0_var(--color-ink)]";
+  const [active, setActive] = useState<(typeof nodes)[number]["id"]>("ai");
+  const current = nodes.find((n) => n.id === active)!;
+  const centre = { x: 50, y: 50 };
   return (
-    <figure className="relative mx-auto h-[26rem] w-full max-w-[34rem] sm:h-[30rem]" aria-label="Illustration: a skill meter that grows across AI, marketing and business">
-      <div className="absolute inset-x-4 top-1/2 h-64 -translate-y-1/2 rounded-[3rem] bg-gradient-to-br from-lav via-sky to-butter" aria-hidden />
-      <div className="animate-wiggle absolute left-1/2 top-1/2 w-[19rem] -translate-x-1/2 -translate-y-1/2 rounded-3xl border-2 border-ink bg-white p-5 shadow-[8px_8px_0_0_var(--color-ink)] [--r:-3deg] sm:w-[21rem]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-extrabold text-ink">Your skill meter</p>
-          <span className="rounded-full bg-butter px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#6b4700]">Illustrative</span>
+    <figure className="mx-auto w-full max-w-[34rem]" aria-label="Interactive illustration of how skill areas connect to a real project">
+      <div className="chunk relative overflow-hidden rounded-[2rem] bg-white p-4 sm:p-6">
+        <div className="mb-2 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-body/70">
+          <span>Skill map</span><span className="rounded-full bg-paper-2 px-2.5 py-1 normal-case tracking-normal">Illustrative · tap a node</span>
         </div>
-        <ul className="mt-5 space-y-4">
-          {bars.map((b, i) => (
-            <li key={b.name}>
-              <div className="mb-1.5 flex justify-between text-xs font-bold text-ink"><span>{b.name}</span><span className="text-ink/50">level up</span></div>
-              <div className="h-3.5 overflow-hidden rounded-full border-2 border-ink bg-paper-2">
-                <div className={`animate-fill h-full rounded-full ${b.c}`} style={{ width: `${b.w}%`, "--d": `${400 + i * 200}ms` } as React.CSSProperties} />
-              </div>
-            </li>
+        <div className="relative mx-auto aspect-square w-full max-w-[26rem]">
+          <svg viewBox="0 0 100 100" className="absolute inset-0 size-full" aria-hidden>
+            <circle cx="50" cy="50" r="30" fill="none" stroke="#e9e3d8" strokeDasharray="1.5 2.5" />
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#f3eee6" />
+            {nodes.map((n) => (
+              <line key={n.id} x1={n.x} y1={n.y} x2={centre.x} y2={centre.y} stroke={n.color} strokeWidth={active === n.id ? 1.4 : 0.6} strokeOpacity={active === n.id ? 1 : 0.4} strokeDasharray="2 2" className={active === n.id ? "animate-dash" : ""} vectorEffect="non-scaling-stroke" />
+            ))}
+          </svg>
+          <div className="absolute left-1/2 top-1/2 grid size-24 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-ink text-center text-xs font-semibold leading-tight text-white shadow-xl sm:size-28">
+            <span className="animate-ring absolute inset-0 rounded-full border border-violet" aria-hidden />
+            Your real<br />project
+          </div>
+          {nodes.map((n) => (
+            <button key={n.id} type="button" onClick={() => setActive(n.id)} aria-pressed={active === n.id}
+              style={{ left: `${n.x}%`, top: `${n.y}%`, borderColor: n.color, background: active === n.id ? n.color : "#fff", color: active === n.id ? "#fff" : "#14122b" }}
+              className="absolute min-h-11 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 px-4 py-2 text-sm font-semibold shadow-md transition hover:scale-105">
+              {n.label}
+            </button>
           ))}
-        </ul>
-        <p className="mt-5 rounded-xl bg-ink px-3 py-2.5 text-xs font-semibold text-white">Next: apply it to a real project</p>
-      </div>
-      <span className={`${chip} left-2 top-10 -rotate-6`}>🤖 AI tools</span>
-      <span className={`${chip} right-4 top-6 rotate-3`}>📣 Meta Ads</span>
-      <span className={`${chip} right-0 top-1/2 hidden -rotate-3 sm:block`}>⚙️ Automation</span>
-      <span className={`${chip} bottom-16 left-0 rotate-3`}>🛒 E-commerce</span>
-      <span className={`${chip} bottom-8 right-14 -rotate-2`}>✍️ Content</span>
-      <div className="absolute bottom-0 left-8 w-44 rotate-[-5deg] border-2 border-ink bg-butter p-3 text-[0.8rem] font-bold leading-snug text-ink shadow-[4px_4px_0_0_var(--color-ink)] sm:left-14">
-        Tip: prompt first, polish second. ✨
+        </div>
+        <div className="mt-2 min-h-[5.5rem] rounded-2xl bg-paper p-4" aria-live="polite">
+          <p className="text-sm font-semibold text-ink">{current.label} covers</p>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {current.topics.map((t) => (<li key={t} className="rounded-full border border-line bg-white px-3 py-1 text-xs font-medium text-ink/80">{t}</li>))}
+          </ul>
+        </div>
       </div>
     </figure>
   );
